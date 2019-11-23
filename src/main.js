@@ -1,3 +1,5 @@
+`use strict`;
+
 const createMenu = () => `
   <div class="trip-info__main">
     <h1 class="trip-info__title">Amsterdam</h1>
@@ -426,8 +428,13 @@ render(tripEvents, createSorting(), `afterbegin`);
 render(tripEvents, createCardList(), `beforeend`);
 
 const tripEventsList = document.querySelector(`.trip-days`);
-const trips = new Array(TRIPSNUMBER).fill(``).forEach(() => render(tripEventsList, createCard(), `beforeend`));
 
+const renderTrips = () => {
+  const trips = new Array(TRIPSNUMBER).fill(``).forEach(() => render(tripEventsList, createCard(), `beforeend`));
+  return trips;
+};
+
+renderTrips();
 const tripEventsItem = document.querySelector(`.trip-events__list`);
 render(tripEventsItem, createCardEdit(), `afterbegin`);
 

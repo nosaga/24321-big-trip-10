@@ -170,7 +170,7 @@ const createCard = () => `
               +
               €&nbsp;<span class="event__offer-price">200</span>
              </li>
-          </ul>
+          </ul>TRIPSNUMBER
 
           <button class="event__rollup-btn" type="button">
             <span class="visually-hidden">Open event</span>
@@ -416,7 +416,7 @@ const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
-const TRIPSNUMBER = 3;
+const TRIPS_NUMBER = 3;
 const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
@@ -430,10 +430,9 @@ render(tripEvents, createCardList(), `beforeend`);
 const tripEventsList = document.querySelector(`.trip-days`);
 
 const renderTrips = () => {
-  return new Array(TRIPSNUMBER).fill(``).forEach(() => render(tripEventsList, createCard(), `beforeend`));
+  new Array(TRIPS_NUMBER).fill(``).forEach(() => render(tripEventsList, createCard(), `beforeend`));
 };
 
 renderTrips();
 const tripEventsItem = document.querySelector(`.trip-events__list`);
 render(tripEventsItem, createCardEdit(), `afterbegin`);
-

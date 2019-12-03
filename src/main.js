@@ -1,10 +1,15 @@
 import {
   TRIPS_NUMBER} from './constants';
+
+import {sortItems} from "./mock/sorting";
+import {filters} from "./mock/filters";
+import {createSortingTemplate} from "./components/sorting";
+import {createFilterTemplate} from "./components/filters";
+
+
 import {render} from './utils';
 import {createMenu} from './components/menu';
 import {createTabs} from './components/tabs';
-import {createFilters} from './components/filters';
-import {createSorting} from './components/sorting';
 import {createCard} from './components/card';
 import {createCardList} from './components/card-list';
 import {createCardEdit} from './components/card-edit';
@@ -15,9 +20,11 @@ const tripEvents = document.querySelector(`.trip-events`);
 
 render(tripInfo, createMenu(), `afterbegin`);
 render(tripControls, createTabs(), `afterbegin`);
-render(tripControls, createFilters(), `beforeend`);
-render(tripEvents, createSorting(), `afterbegin`);
 render(tripEvents, createCardList(), `beforeend`);
+
+
+render(tripEvents, createSortingTemplate(sortItems), `afterbegin`);
+render(tripControls, createFilterTemplate(filters), `beforeend`);
 
 const tripEventsList = document.querySelector(`.trip-days`);
 

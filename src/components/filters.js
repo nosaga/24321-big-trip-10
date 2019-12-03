@@ -1,3 +1,31 @@
+const createFiltersMarkup = (filter, isChecked) => {
+  return `
+    <div class="trip-filters__filter">
+      <input id="filter-${filter}" class="trip-filters__filter-input  visually-hidden" 
+        type="radio" 
+        name="trip-filter" 
+        value="${filter}" 
+        ${isChecked ? `checked` : ``}>
+      <label class="trip-filters__filter-label" 
+      for="filter-${filter}">${filter.toUpperCase()}</label>
+    </div>
+  `;
+};
+
+export const createFilterTemplate = (filters) => {
+  const filtersMarkup = filters.map((it, i) => createFiltersMarkup(it, i === 0)).join(`\n`);
+
+  return (
+    `<form class="trip-filters" action="#" method="get">
+      ${filtersMarkup}
+      <button class="visually-hidden" type="submit">Accept filter</button>
+    `
+  );
+};
+
+
+
+
 export const createFilters = () => `
   <form class="trip-filters" action="#" method="get">
     <div class="trip-filters__filter">

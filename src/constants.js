@@ -1,5 +1,5 @@
 const TRIPS_NUMBER = 3;
-const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Airport`];
+const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Paris`];
 const photos = new Array(5).fill(``);
 const monthNames = [
   `January`,

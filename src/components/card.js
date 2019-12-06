@@ -33,9 +33,9 @@ export const createCardTemplate = (trip) => {
             <h4 class="visually-hidden">Offers:</h4>
             <ul class="event__selected-offers">
               <li class="event__offer">
-                <span class="event__offer-title">${offers.offer.name}</span>
+                <span class="event__offer-title">${offers.offer[0].name}</span>
                 +
-                €&nbsp;<span class="event__offer-price">${offers.offer.price}</span>
+                €&nbsp;<span class="event__offer-price">${offers.offer[0].price}</span>
                </li>
             </ul>
     

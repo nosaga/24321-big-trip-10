@@ -2,8 +2,8 @@ import {cities, photos} from "../constants";
 
 const generateTrip = () => ({
   basePrice: Math.floor(Math.random() * 1000),
-  dateFrom: `2019-07-10T22:55:56.845Z`,
-  dateTo: `2019-07-11T11:22:13.375Z`,
+  dateFrom: new Date(`2019-07-10T22:55:56.845Z`),
+  dateTo: new Date(`2019-07-11T11:22:13.375Z`),
   destination: {
     description: [
       `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.`,

@@ -23,9 +23,6 @@ export const createFilterTemplate = (filters) => {
   );
 };
 
-
-
-
 export const createFilters = () => `
   <form class="trip-filters" action="#" method="get">
     <div class="trip-filters__filter">

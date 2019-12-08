@@ -26,7 +26,7 @@ const generateTrip = () => ({
   id: Math.floor(Math.random() * 100),
   isFavorite: Boolean(Math.round(Math.random())),
   offers: {
-    type: [`Taxi`, `Bus`, `Train`, `Flight`, `Check-in`, `Sightseeing`][Math.floor(Math.random() * 6)],
+    type: [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`, `Check-in`, `Sightseeing`, `Restaurant`][Math.floor(Math.random() * 9)],
     offer: [
       {
         name: `Switch to comfort class`,
@@ -60,7 +60,7 @@ const generateTrip = () => ({
       }
     ]
   },
-  type: [`Taxi`, `Bus`, `Train`, `Flight`, `Check-in`, `Sightseeing`][Math.floor(Math.random() * 6)],
+  type: [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`, `Check-in`, `Sightseeing`, `Restaurant`][Math.floor(Math.random() * 9)],
 });
 
 

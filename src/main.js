@@ -12,9 +12,8 @@ import {createMenuTemplate} from './components/menu';
 
 import {render} from './utils';
 import {createTabs} from './components/tabs';
-/*import {createCard} from './components/card';*/
 import {createCardList} from './components/card-list';
-import {createCardEdit} from './components/card-edit';
+import {createCardEditTemplate} from './components/card-edit';
 
 
 const tripInfo = document.querySelector(`.trip-main__trip-info`);
@@ -30,16 +29,10 @@ render(tripControls, createFilterTemplate(filters), `beforeend`);
 
 const tripEventsList = document.querySelector(`.trip-days`);
 const trips = generateTrips(TRIPS_NUMBER);
-console.log(trips[0]);
-console.log(trips[trips.length - 1]);
 render(tripInfo, createMenuTemplate(trips[0], trips[trips.length - 1]), `afterbegin`);
 
-trips.forEach((trip) => render(tripEventsList, createCardTemplate(trip), `beforeend`));
+trips.forEach((trip, index) => render(tripEventsList, createCardTemplate(trip, index), `beforeend`));
 
-/*const renderTrips = () => {
-  new Array(TRIPS_NUMBER).fill(``).forEach(() => render(tripEventsList, createCardTemplate(card), `beforeend`));
-};*/
 
-//renderTrips();
 const tripEventsItem = document.querySelector(`.trip-events__list`);
-render(tripEventsItem, createCardEdit(), `afterbegin`);
+render(tripEventsItem, createCardEditTemplate(trips[0]), `afterbegin`);

@@ -1,15 +1,29 @@
 import {monthNames} from "../constants";
 
-export const createCardTemplate = (trip) => {
-  const {type, dateFrom, dateTo, basePrice, offers} = trip;
-  // const startDate = monthNames[dateFrom.getMonth()];
-  // //const endDate = dateTo.getDate();
+const createOffersTemplate = (offer) => {
+  return `
+    <li class="event__offer">
+      <span class="event__offer-title">${offer.name}</span>
+      +
+      €&nbsp;<span class="event__offer-price">${offer.price}</span>
+     </li>
+  `;
+};
 
+export const createCardTemplate = (trip, index) => {
+  const {type, dateFrom, dateTo, basePrice, offers} = trip;
+  const startMonth = monthNames[dateFrom.getMonth()];
+  const startDate = dateFrom.getDate();
+  const startHours = dateFrom.getHours();
+  const startMinutes = dateFrom.getMinutes();
+  const endHours = dateTo.getHours();
+  const endMinutes = dateTo.getMinutes();
+  index += 1;
   return `
     <li class="trip-days__item  day">
       <div class="day__info">
-        <span class="day__counter">1</span>
-        <time class="day__date" datetime="2019-03-18">${monthNames[0]} 18</time>
+        <span class="day__counter">${index}</span>
+        <time class="day__date" datetime="2019-03-18">${startMonth} ${startDate}</time>
       </div>
       <ul class="trip-events__list">
         <li class="trip-events__item">
@@ -21,9 +35,11 @@ export const createCardTemplate = (trip) => {
     
             <div class="event__schedule">
               <p class="event__time">
-                
+                <time class="event__start-time" datetime="2019-03-18T10:30">${startHours} : ${startMinutes}</time>
+                &mdash;
+                <time class="event__end-time" datetime="2019-03-18T11:00">${endHours} : ${endMinutes}</time>
               </p>
-              <p class="event__duration">1H 30M</p>
+              <p class="event__duration">${endHours - startHours}H ${endMinutes - endMinutes}M</p>
             </div>
     
             <p class="event__price">
@@ -32,11 +48,7 @@ export const createCardTemplate = (trip) => {
     
             <h4 class="visually-hidden">Offers:</h4>
             <ul class="event__selected-offers">
-              <li class="event__offer">
-                <span class="event__offer-title">${offers.offer[0].name}</span>
-                +
-                €&nbsp;<span class="event__offer-price">${offers.offer[0].price}</span>
-               </li>
+              ${offers.offer.map((item) => item.isChecked === true ? createOffersTemplate((item)) : ``).join(``)}
             </ul>
     
             <button class="event__rollup-btn" type="button">

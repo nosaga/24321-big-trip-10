@@ -16,9 +16,13 @@ const monthNames = [
   `December`,
 ];
 
+const tripTypes = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
+const activityType = [`Check-in`, `Sightseeing`, `Restaurant`];
 export {
   TRIPS_NUMBER,
   cities,
   photos,
-  monthNames
+  monthNames,
+  tripTypes,
+  activityType
 };

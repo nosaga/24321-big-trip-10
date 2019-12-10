@@ -23,7 +23,7 @@ export const createSortingTemplate = (sortItems) => {
     `
     <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       <span class="trip-sort__item  trip-sort__item--day">Day</span>
-      ${sortingMarkup} 
+        ${sortingMarkup} 
       <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
   </form>`
   );

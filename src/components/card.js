@@ -12,10 +12,15 @@ const createOffersTemplate = (offer) => {
 
 export const createCardTemplate = (trip, index) => {
   const {type, dateFrom, dateTo, basePrice, offers} = trip;
+  const startYear = dateFrom.getFullYear();
   const startMonth = monthNames[dateFrom.getMonth()];
+  const startMonthDigit = dateFrom.getMonth();
   const startDate = dateFrom.getDate();
   const startHours = dateFrom.getHours();
   const startMinutes = dateFrom.getMinutes();
+  const endYear = dateTo.getFullYear();
+  const endMonthDigit = dateTo.getMonth();
+  const endDate = dateTo.getDate();
   const endHours = dateTo.getHours();
   const endMinutes = dateTo.getMinutes();
   index += 1;
@@ -35,28 +40,25 @@ export const createCardTemplate = (trip, index) => {
     
             <div class="event__schedule">
               <p class="event__time">
-                <time class="event__start-time" datetime="2019-03-18T10:30">${startHours} : ${startMinutes}</time>
+                <time class="event__start-time" datetime="${startYear + `-` + startMonthDigit + `-` + startDate + `T` + startHours + `:` + startMinutes}">${startHours} : ${startMinutes}</time>
                 &mdash;
-                <time class="event__end-time" datetime="2019-03-18T11:00">${endHours} : ${endMinutes}</time>
+                <time class="event__end-time" datetime="${endYear + `-` + endMonthDigit + `-` + endDate + `T` + endHours + `:` + endMinutes}">${endHours} : ${endMinutes}</time>
               </p>
               <p class="event__duration">${endHours - startHours}H ${endMinutes - endMinutes}M</p>
             </div>
-    
             <p class="event__price">
               €&nbsp;<span class="event__price-value">${basePrice}</span>
             </p>
-    
             <h4 class="visually-hidden">Offers:</h4>
             <ul class="event__selected-offers">
               ${offers.offer.map((item) => item.isChecked === true ? createOffersTemplate((item)) : ``).join(``)}
             </ul>
-    
             <button class="event__rollup-btn" type="button">
               <span class="visually-hidden">Open event</span>
             </button>
           </div>
         </li>
       </ul>
-  </li>
+    </li>
  `;
 };

@@ -1,5 +1,4 @@
-import {
-  TRIPS_NUMBER} from './constants';
+import {TRIPS_NUMBER} from './constants';
 
 import {sortItems} from "./mock/sorting";
 import {filters} from "./mock/filters";

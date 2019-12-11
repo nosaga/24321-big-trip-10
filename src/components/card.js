@@ -23,12 +23,14 @@ export const createCardTemplate = (trip, index) => {
   const endDate = dateTo.getDate();
   const endHours = dateTo.getHours();
   const endMinutes = dateTo.getMinutes();
+
   index += 1;
+
   return `
     <li class="trip-days__item  day">
       <div class="day__info">
         <span class="day__counter">${index}</span>
-        <time class="day__date" datetime="2019-03-18">${startMonth} ${startDate}</time>
+        <time class="day__date" datetime="${startYear + `-` + startMonthDigit + `-` + startDate}">${startMonth} ${startDate}</time>
       </div>
       <ul class="trip-events__list">
         <li class="trip-events__item">

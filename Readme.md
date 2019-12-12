@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Виолетта](https://up.htmlacademy.ru/ecmascript/10/user/24321).
-* Наставник: [Алексей Белявский] (https://htmlacademy.ru/profile/id666435).
+* Наставник: [Алексей Белявский](https://htmlacademy.ru/profile/id666435).
 
 ---
 

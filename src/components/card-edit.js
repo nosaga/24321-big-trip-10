@@ -1,4 +1,4 @@
-import {randomInteger} from "../utils";
+import {createElement, randomInteger} from "../utils";
 import {tripTypes, activityType, cities} from "../constants";
 
 const eventTypeTemplate = (type) => {
@@ -47,7 +47,7 @@ const chooseConjunctions = (noun) => {
   return noun === `Sightseeing` || noun === `Restaurant` || noun === `Check-In` ? `in` : `to`;
 };
 
-export const createCardEditTemplate = (trip) => {
+const createCardEditTemplate = (trip) => {
   const {type, destination, offers, basePrice, dateFrom, dateTo} = trip;
   const startYear = dateFrom.getFullYear().toString().substr(2, 2);
   const startMonth = dateFrom.getMonth();
@@ -60,8 +60,7 @@ export const createCardEditTemplate = (trip) => {
   const endHours = dateTo.getHours();
   const endMinutes = dateTo.getMinutes();
 
-  return `
-    <li class="trip-events__item">
+  return `<li class="trip-events__item">
       <form class="event  event--edit" action="#" method="post">
         <header class="event__header">
           <div class="event__type-wrapper">
@@ -155,3 +154,27 @@ export const createCardEditTemplate = (trip) => {
     </li>
   `;
 };
+
+
+export default class CardEditComponent {
+  constructor(trip) {
+    this._trip = trip;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createCardEditTemplate(this._trip);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

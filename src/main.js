@@ -12,6 +12,7 @@ import TabsComponent from './components/tabs';
 import MenuComponent from './components/menu';
 import CardComponent from './components/card';
 import CardEditComponent from './components/card-edit';
+import NoPoints from './components/no-points';
 
 const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
@@ -47,9 +48,14 @@ const renderCard = (cardListElement, trip, index) => {
   };
 
   const editButtonElement = cardComponent.getElement().querySelector(`.event__rollup-btn`);
+  const rollupButtonElement = cardEditComponent.getElement().querySelector(`.event__rollup-btn`);
   editButtonElement.addEventListener(`click`, () => {
     replaceCardToEdit();
     document.addEventListener(`keydown`, onEscKeyDown);
+  });
+
+  rollupButtonElement.addEventListener(`click`, () => {
+    replaceEditToCard();
   });
 
   const editFormElement = cardEditComponent.getElement().querySelector(`form`);
@@ -57,4 +63,9 @@ const renderCard = (cardListElement, trip, index) => {
   render(cardListElement, cardComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
-trips.forEach((trip, index) => renderCard(cardBoard, trip, index, RenderPosition.BEFOREEND));
+if (trips === 0) {
+  render(cardBoard, new NoPoints().getElement(), RenderPosition.BEFOREEND);
+} else {
+  trips.forEach((trip, index) => renderCard(cardBoard, trip, index, RenderPosition.BEFOREEND));
+}
+

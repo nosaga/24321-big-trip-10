@@ -1,17 +1,17 @@
 import {TRIPS_NUMBER} from './constants';
 import {RenderPosition, render} from './utils';
 
-import {sortItems} from "./mock/sorting";
-import {filters} from "./mock/filters";
+import {sortItems} from './mock/sorting';
+import {filters} from './mock/filters';
 
-import {generateTrips} from "./mock/card";
-import CardBoard from './components/cards'
-import SortComponent from "./components/sorting";
-import FilterComponent from "./components/filters";
+import {generateTrips} from './mock/card';
+import CardBoard from './components/cards';
+import SortComponent from './components/sorting';
+import FilterComponent from './components/filters';
 import TabsComponent from './components/tabs';
 import MenuComponent from './components/menu';
 import CardComponent from './components/card';
-import CardEditComponent from './components/card-edit'
+import CardEditComponent from './components/card-edit';
 
 const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
@@ -25,7 +25,36 @@ render(tripEvents, new SortComponent(sortItems).getElement(), RenderPosition.AFT
 render(tripControls, new FilterComponent(filters).getElement(), RenderPosition.BEFOREEND);
 render(tripInfo, new MenuComponent(trips[0], trips[trips.length - 1]).getElement(), `afterbegin`);
 
-trips.forEach((trip, index) => render(cardBoard, new CardComponent(trip, index).getElement(), RenderPosition.BEFOREEND));
+const renderCard = (cardListElement, trip, index) => {
+  const cardComponent = new CardComponent(trip, index);
+  const cardEditComponent = new CardEditComponent(trip, index);
 
-const tripEventsItem = document.querySelector(`.trip-events__list`);
-render(tripEventsItem, new CardEditComponent(trips[0]).getElement(), RenderPosition.AFTERBEGIN);
+  const replaceEditToCard = () => {
+    cardListElement.replaceChild(cardComponent.getElement(), cardEditComponent.getElement());
+  };
+
+  const replaceCardToEdit = () => {
+    cardListElement.replaceChild(cardEditComponent.getElement(), cardComponent.getElement());
+  };
+
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.code === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      replaceEditToCard();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  const editButtonElement = cardComponent.getElement().querySelector(`.event__rollup-btn`);
+  editButtonElement.addEventListener(`click`, () => {
+    replaceCardToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
+  });
+
+  const editFormElement = cardEditComponent.getElement().querySelector(`form`);
+  editFormElement.addEventListener(`submit`, replaceEditToCard);
+  render(cardListElement, cardComponent.getElement(), RenderPosition.BEFOREEND);
+};
+
+trips.forEach((trip, index) => renderCard(cardBoard, trip, index, RenderPosition.BEFOREEND));

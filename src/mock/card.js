@@ -1,4 +1,4 @@
-import {cities, photos} from "../constants";
+import {cities, photos} from '../constants';
 
 const generateTrip = () => ({
   basePrice: Math.floor(Math.random() * 1000),

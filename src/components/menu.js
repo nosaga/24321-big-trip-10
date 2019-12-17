@@ -1,4 +1,4 @@
-import {monthNames} from "./../constants";
+import {monthNames} from './../constants';
 import {createElement} from '../utils';
 
 const createMenuTemplate = (startPoint, endPoint) => {

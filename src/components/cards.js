@@ -2,7 +2,6 @@ import {createElement} from '../utils';
 
 const cardBoardTemplate = () => `<ul class="trip-days"></ul>`;
 
-
 export default class CardBoard {
   constructor() {
     this._element = null;

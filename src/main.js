@@ -1,37 +1,60 @@
 import {TRIPS_NUMBER} from './constants';
+import {RenderPosition, render} from './utils';
 
-import {sortItems} from "./mock/sorting";
-import {filters} from "./mock/filters";
-import {generateTrips} from "./mock/card";
-import {createSortingTemplate} from "./components/sorting";
-import {createFilterTemplate} from "./components/filters";
-import {createCardTemplate} from "./components/card";
-import {createMenuTemplate} from './components/menu';
+import {sortItems} from './mock/sorting';
+import {filters} from './mock/filters';
 
-
-import {render} from './utils';
-import {createTabs} from './components/tabs';
-import {createCardList} from './components/card-list';
-import {createCardEditTemplate} from './components/card-edit';
-
+import {generateTrips} from './mock/card';
+import CardBoard from './components/cards';
+import SortComponent from './components/sorting';
+import FilterComponent from './components/filters';
+import TabsComponent from './components/tabs';
+import MenuComponent from './components/menu';
+import CardComponent from './components/card';
+import CardEditComponent from './components/card-edit';
 
 const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
-
-render(tripControls, createTabs(), `afterbegin`);
-render(tripEvents, createCardList(), `beforeend`);
-
-
-render(tripEvents, createSortingTemplate(sortItems), `afterbegin`);
-render(tripControls, createFilterTemplate(filters), `beforeend`);
-
-const tripEventsList = document.querySelector(`.trip-days`);
 const trips = generateTrips(TRIPS_NUMBER);
-render(tripInfo, createMenuTemplate(trips[0], trips[trips.length - 1]), `afterbegin`);
+const cardBoard = new CardBoard().getElement();
 
-trips.forEach((trip, index) => render(tripEventsList, createCardTemplate(trip, index), `beforeend`));
+render(tripControls, new TabsComponent().getElement(), RenderPosition.AFTERBEGIN);
+render(tripEvents, cardBoard, RenderPosition.BEFOREEND);
+render(tripEvents, new SortComponent(sortItems).getElement(), RenderPosition.AFTERBEGIN);
+render(tripControls, new FilterComponent(filters).getElement(), RenderPosition.BEFOREEND);
+render(tripInfo, new MenuComponent(trips[0], trips[trips.length - 1]).getElement(), `afterbegin`);
 
+const renderCard = (cardListElement, trip, index) => {
+  const cardComponent = new CardComponent(trip, index);
+  const cardEditComponent = new CardEditComponent(trip, index);
 
-const tripEventsItem = document.querySelector(`.trip-events__list`);
-render(tripEventsItem, createCardEditTemplate(trips[0]), `afterbegin`);
+  const replaceEditToCard = () => {
+    cardListElement.replaceChild(cardComponent.getElement(), cardEditComponent.getElement());
+  };
+
+  const replaceCardToEdit = () => {
+    cardListElement.replaceChild(cardEditComponent.getElement(), cardComponent.getElement());
+  };
+
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.code === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      replaceEditToCard();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  const editButtonElement = cardComponent.getElement().querySelector(`.event__rollup-btn`);
+  editButtonElement.addEventListener(`click`, () => {
+    replaceCardToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
+  });
+
+  const editFormElement = cardEditComponent.getElement().querySelector(`form`);
+  editFormElement.addEventListener(`submit`, replaceEditToCard);
+  render(cardListElement, cardComponent.getElement(), RenderPosition.BEFOREEND);
+};
+
+trips.forEach((trip, index) => renderCard(cardBoard, trip, index, RenderPosition.BEFOREEND));

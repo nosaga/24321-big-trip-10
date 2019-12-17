@@ -1,6 +1,7 @@
+import {createElement} from '../utils';
+
 const createSortingMarkup = (sort, isChecked) => {
-  return `
-    <div class="trip-sort__item  trip-sort__item--time">
+  return `<div class="trip-sort__item  trip-sort__item--time">
       <input id="sort-time" class="trip-sort__input  visually-hidden" 
         type="radio" 
         name="trip-sort" 
@@ -16,15 +17,37 @@ const createSortingMarkup = (sort, isChecked) => {
   `;
 };
 
-export const createSortingTemplate = (sortItems) => {
+const createSortingTemplate = (sortItems) => {
   const sortingMarkup = sortItems.map((it, i) => createSortingMarkup(it, i === 0)).join(`\n`);
 
   return (
-    `
-    <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
+    `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       <span class="trip-sort__item  trip-sort__item--day">Day</span>
         ${sortingMarkup} 
       <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
   </form>`
   );
 };
+
+export default class SortComponent {
+  constructor(sort) {
+    this._sort = sort;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createSortingTemplate(this._sort);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

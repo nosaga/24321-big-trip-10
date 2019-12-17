@@ -1,18 +1,14 @@
 import {createElement} from '../utils';
 
-const createTabsTemplate = () => `<nav class="trip-controls__trip-tabs  trip-tabs">
-    <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
-    <a class="trip-tabs__btn" href="#">Stats</a>
-  </nav>
-`;
+const cardBoardTemplate = () => `<ul class="trip-days"></ul>`;
 
-export default class TabsComponent {
+export default class CardBoard {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return createTabsTemplate();
+    return cardBoardTemplate();
   }
 
   getElement() {

@@ -1,8 +1,8 @@
-import {monthNames} from "../constants";
+import {monthNames} from '../constants';
+import {createElement} from '../utils';
 
 const createOffersTemplate = (offer) => {
-  return `
-    <li class="event__offer">
+  return `<li class="event__offer">
       <span class="event__offer-title">${offer.name}</span>
       +
       €&nbsp;<span class="event__offer-price">${offer.price}</span>
@@ -10,7 +10,7 @@ const createOffersTemplate = (offer) => {
   `;
 };
 
-export const createCardTemplate = (trip, index) => {
+const createCardTemplate = (trip, index) => {
   const {type, dateFrom, dateTo, basePrice, offers} = trip;
   const startYear = dateFrom.getFullYear();
   const startMonth = monthNames[dateFrom.getMonth()];
@@ -26,8 +26,7 @@ export const createCardTemplate = (trip, index) => {
 
   index += 1;
 
-  return `
-    <li class="trip-days__item  day">
+  return `<li class="trip-days__item  day">
       <div class="day__info">
         <span class="day__counter">${index}</span>
         <time class="day__date" datetime="${startYear + `-` + startMonthDigit + `-` + startDate}">${startMonth} ${startDate}</time>
@@ -64,3 +63,27 @@ export const createCardTemplate = (trip, index) => {
     </li>
  `;
 };
+
+export default class CardComponent {
+  constructor(offer, index) {
+    this._offer = offer;
+    this._index = index;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createCardTemplate(this._offer, this._index);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

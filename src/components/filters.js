@@ -14,7 +14,7 @@ const createFiltersMarkup = (filter, isChecked) => {
 };
 
 const createFilterTemplate = (filters) => {
-  const filtersMarkup = filters.map((it, i) => createFiltersMarkup(it, i === 0)).join(`\n`);
+  const filtersMarkup = filters.map((it, i) => createFiltersMarkup(it, !i)).join(`\n`);
 
   return `<form class="trip-filters" action="#" method="get">
     ${filtersMarkup}

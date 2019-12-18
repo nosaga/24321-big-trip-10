@@ -63,9 +63,8 @@ const renderCard = (cardListElement, trip, index) => {
   render(cardListElement, cardComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
-if (trips === 0) {
-  render(cardBoard, new NoPoints().getElement(), RenderPosition.BEFOREEND);
-} else {
+if (trips.length) {
   trips.forEach((trip, index) => renderCard(cardBoard, trip, index, RenderPosition.BEFOREEND));
+} else {
+  render(cardBoard, new NoPoints().getElement(), RenderPosition.BEFOREEND);
 }
-

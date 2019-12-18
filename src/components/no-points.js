@@ -2,7 +2,6 @@ import {createElement} from '../utils';
 
 const cardNoPointsTemplate = () => `<p class="trip-events__msg">Click New Event to create your first point</p>`;
 
-
 export default class NoPoints {
   constructor() {
     this._element = null;

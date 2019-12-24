@@ -1,5 +1,5 @@
 import {monthNames} from '../constants';
-import {createElement} from '../utils';
+import AbstractComponent from './abstract-component';
 
 const createOffersTemplate = (offer) => {
   return `<li class="event__offer">
@@ -64,26 +64,15 @@ const createCardTemplate = (trip, index) => {
  `;
 };
 
-export default class CardComponent {
+export default class CardComponent extends AbstractComponent {
   constructor(offer, index) {
+    super();
     this._offer = offer;
     this._index = index;
-    this._element = null;
   }
 
   getTemplate() {
     return createCardTemplate(this._offer, this._index);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
+

@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import AbstractComponent from './abstract-component';
 
 const createFiltersMarkup = (filter, isChecked) => {
   return `<div class="trip-filters__filter">
@@ -22,25 +22,13 @@ const createFilterTemplate = (filters) => {
   `;
 };
 
-export default class FilterComponent {
-  constructor(filter) {
-    this._filter = filter;
-    this._element = null;
-  }
 
+export default class FilterComponent extends AbstractComponent {
+  constructor(filter) {
+    super();
+    this._filter = filter;
+  }
   getTemplate() {
     return createFilterTemplate(this._filter);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

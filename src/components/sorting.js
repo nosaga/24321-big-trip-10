@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import AbstractComponent from './abstract-component';
 
 const createSortingMarkup = (sort, isChecked) => {
   return `<div class="trip-sort__item  trip-sort__item--time">
@@ -29,25 +29,14 @@ const createSortingTemplate = (sortItems) => {
   );
 };
 
-export default class SortComponent {
+export default class SortComponent extends AbstractComponent {
   constructor(sort) {
+    super();
     this._sort = sort;
-    this._element = null;
   }
 
   getTemplate() {
     return createSortingTemplate(this._sort);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
+

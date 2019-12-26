@@ -8,7 +8,6 @@ const createTabsTemplate = () => `<nav class="trip-controls__trip-tabs  trip-tab
 
 export default class TabsComponent extends AbstractComponent {
   getTemplate() {
-    createTabsTemplate();
+    return createTabsTemplate();
   }
-
 }

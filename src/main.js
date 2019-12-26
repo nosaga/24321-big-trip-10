@@ -1,5 +1,5 @@
 import {TRIPS_NUMBER} from './constants';
-import {RenderPosition, render} from './utils';
+import {RenderPosition, render, replace} from './utils/render';
 
 import {sortItems} from './mock/sorting';
 import {filters} from './mock/filters';
@@ -18,24 +18,22 @@ const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 const trips = generateTrips(TRIPS_NUMBER);
-const cardBoard = new CardBoard().getElement();
-
-render(tripControls, new TabsComponent().getElement(), RenderPosition.AFTERBEGIN);
+const cardBoard = new CardBoard();
+render(tripControls, new TabsComponent(), RenderPosition.AFTERBEGIN);
 render(tripEvents, cardBoard, RenderPosition.BEFOREEND);
-render(tripEvents, new SortComponent(sortItems).getElement(), RenderPosition.AFTERBEGIN);
-render(tripControls, new FilterComponent(filters).getElement(), RenderPosition.BEFOREEND);
-render(tripInfo, new MenuComponent(trips[0], trips[trips.length - 1]).getElement(), `afterbegin`);
+render(tripEvents, new SortComponent(sortItems), RenderPosition.AFTERBEGIN);
+render(tripControls, new FilterComponent(filters), RenderPosition.BEFOREEND);
+render(tripInfo, new MenuComponent(trips[0], trips[trips.length - 1]), `afterbegin`);
 
 const renderCard = (cardListElement, trip, index) => {
   const cardComponent = new CardComponent(trip, index);
   const cardEditComponent = new CardEditComponent(trip, index);
-
   const replaceEditToCard = () => {
-    cardListElement.replaceChild(cardComponent.getElement(), cardEditComponent.getElement());
+    replace(cardComponent, cardEditComponent);
   };
 
   const replaceCardToEdit = () => {
-    cardListElement.replaceChild(cardEditComponent.getElement(), cardComponent.getElement());
+    replace(cardEditComponent, cardComponent);
   };
 
   const onEscKeyDown = (evt) => {
@@ -60,11 +58,11 @@ const renderCard = (cardListElement, trip, index) => {
 
   const editFormElement = cardEditComponent.getElement().querySelector(`form`);
   editFormElement.addEventListener(`submit`, replaceEditToCard);
-  render(cardListElement, cardComponent.getElement(), RenderPosition.BEFOREEND);
+  render(cardListElement, cardComponent, RenderPosition.BEFOREEND);
 };
 
 if (trips.length) {
-  trips.forEach((trip, index) => renderCard(cardBoard, trip, index, RenderPosition.BEFOREEND));
+  trips.forEach((trip, index) => renderCard(cardBoard.getElement(), trip, index, RenderPosition.BEFOREEND));
 } else {
-  render(cardBoard, new NoPoints().getElement(), RenderPosition.BEFOREEND);
+  render(cardBoard, new NoPoints(), RenderPosition.BEFOREEND);
 }

@@ -1,10 +1,14 @@
 import AbstractComponent from './abstract-component';
 
-const cardBoardTemplate = () => `<ul class="trip-days"></ul>`;
+const cardBoardTemplate = () => {
+  return (
+    `<ul class="trip-days"></ul>`
+  );
+};
 
 
 export default class CardBoard extends AbstractComponent {
-  getElement() {
+  getTemplate() {
     return cardBoardTemplate();
   }
 }

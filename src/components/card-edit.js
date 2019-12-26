@@ -1,6 +1,6 @@
-import {randomInteger} from '../utils';
+import {randomInteger} from '../utils/common';
 import {tripTypes, activityType, cities, monthNames} from '../constants';
-import {AbstractComponent} from './abstract-component';
+import AbstractComponent from './abstract-component';
 
 const eventTypeTemplate = (type) => {
   return `
@@ -167,8 +167,6 @@ const createCardEditTemplate = (trip, index) => {
     </li>
   `;
 };
-
-
 
 export default class CardEditComponent extends AbstractComponent {
   constructor(trip, index) {

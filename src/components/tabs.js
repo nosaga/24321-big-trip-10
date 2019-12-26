@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import AbstractComponent from './abstract-component';
 
 const createTabsTemplate = () => `<nav class="trip-controls__trip-tabs  trip-tabs">
     <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
@@ -6,24 +6,8 @@ const createTabsTemplate = () => `<nav class="trip-controls__trip-tabs  trip-tab
   </nav>
 `;
 
-export default class TabsComponent {
-  constructor() {
-    this._element = null;
-  }
-
+export default class TabsComponent extends AbstractComponent {
   getTemplate() {
     return createTabsTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

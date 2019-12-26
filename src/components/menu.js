@@ -1,5 +1,5 @@
 import {monthNames} from './../constants';
-import {createElement} from '../utils';
+import AbstractComponent from './abstract-component';
 
 const createMenuTemplate = (startPoint, endPoint) => {
   let startMonth = startPoint ? monthNames[startPoint.dateFrom.getMonth()] : ``;
@@ -14,27 +14,16 @@ const createMenuTemplate = (startPoint, endPoint) => {
   `;
 };
 
-export default class MenuComponent {
+export default class MenuComponent extends AbstractComponent {
   constructor(start, end) {
+    super();
+
     this._start = start;
     this._end = end;
-    this._element = null;
   }
-
   getTemplate() {
     return createMenuTemplate(this._start, this._end);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
+
 

@@ -3,7 +3,6 @@ import {RenderPosition, render, replace} from './utils/render';
 
 import {sortItems} from './mock/sorting';
 import {filters} from './mock/filters';
-
 import {generateTrips} from './mock/card';
 import CardBoard from './components/cards';
 import SortComponent from './components/sorting';

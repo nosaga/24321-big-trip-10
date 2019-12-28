@@ -1,5 +1,5 @@
 import {TRIPS_NUMBER} from './constants';
-import {RenderPosition, render, replace} from './utils/render';
+import {RenderPosition, render} from './utils/render';
 
 import {sortItems} from './mock/sorting';
 import {filters} from './mock/filters';
@@ -12,7 +12,9 @@ import MenuComponent from './components/menu';
 import CardComponent from './components/card';
 import CardEditComponent from './components/card-edit';
 import NoPoints from './components/no-points';
+import TripController from './controllers/trip';
 
+const tripsBoard = document.querySelector(`.page-body__container`);
 const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
@@ -20,10 +22,13 @@ const trips = generateTrips(TRIPS_NUMBER);
 const cardBoard = new CardBoard();
 render(tripControls, new TabsComponent(), RenderPosition.AFTERBEGIN);
 render(tripEvents, cardBoard, RenderPosition.BEFOREEND);
-render(tripEvents, new SortComponent(sortItems), RenderPosition.AFTERBEGIN);
+//render(tripEvents, new SortComponent(sortItems), RenderPosition.AFTERBEGIN);
 render(tripControls, new FilterComponent(filters), RenderPosition.BEFOREEND);
 render(tripInfo, new MenuComponent(trips[0], trips[trips.length - 1]), `afterbegin`);
 
+const boardController = new TripController(cardBoard.getElement());
+boardController.render(trips);
+/*
 const renderCard = (cardListElement, trip, index) => {
   const cardComponent = new CardComponent(trip, index);
   const cardEditComponent = new CardEditComponent(trip, index);
@@ -65,3 +70,5 @@ if (trips.length) {
 } else {
   render(cardBoard, new NoPoints(), RenderPosition.BEFOREEND);
 }
+*/
+

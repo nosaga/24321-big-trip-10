@@ -1,4 +1,5 @@
 const TRIPS_NUMBER = 3;
+const TRIP_EVENTS = document.querySelector(`.trip-events`);
 const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Paris`];
 const photos = new Array(5).fill(``);
 const monthNames = [
@@ -20,6 +21,7 @@ const tripTypes = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight
 const activityType = [`Check-in`, `Sightseeing`, `Restaurant`];
 export {
   TRIPS_NUMBER,
+  TRIP_EVENTS,
   cities,
   photos,
   monthNames,

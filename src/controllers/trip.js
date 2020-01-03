@@ -1,3 +1,4 @@
+import {TRIP_EVENTS} from '../constants';
 import CardComponent from '../components/card';
 import CardEditComponent from '../components/card-edit';
 import {render, RenderPosition, replace} from '../utils/render';
@@ -60,30 +61,25 @@ export default class TripController {
       render(this._container, new NoPoints(), RenderPosition.BEFOREEND);
     }
 
-    render(this._container, this._sortComponent, RenderPosition.AFTERBEGIN);
+    render(TRIP_EVENTS, this._sortComponent, RenderPosition.AFTERBEGIN);
     this._sortComponent.setSortTypeChangeHandler((sortType) => {
       let sortedTrips = [];
-      console.log(SortType);
 
       switch (sortType) {
         case SortType.TIME_DOWN:
-          console.log(`time`);
           sortedTrips = trips.slice().sort((a, b) => a.startTime - b.startTime);
           break;
         case SortType.PRICE_DOWN:
-          console.log(`price`);
           sortedTrips = trips.slice().sort((a, b) => b.basePrice - a.basePrice);
           break;
         case SortType.DEFAULT:
-          sortedTrips = trips.length;
+          sortedTrips = trips;
           break;
       }
 
-      this._container.children.not(`first-child`).innerHTML = ``;
 
+      this._container.innerHTML = ``;
       renderCards(this._container, sortedTrips);
-
-      //sortedTrips.forEach((trip, index) => renderCard(this._container, trip, index, RenderPosition.BEFOREEND));
     });
   }
 }
